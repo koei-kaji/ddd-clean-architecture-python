@@ -10,7 +10,7 @@ on:
 
 jobs:
   code-check:
-    uses: koei-kaji/reusable-github-actions/.github/workflows/python-code-check.yaml@1.0.0
+    uses: koei-kaji/reusable-github-actions/.github/workflows/python-code-check.yaml@v1.0.0
     with:
       python-version: 3.10.5
       pip-version: 22.2.2
