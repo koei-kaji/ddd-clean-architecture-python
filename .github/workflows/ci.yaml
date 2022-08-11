@@ -13,7 +13,6 @@ jobs:
     with:
       python-version: 3.10.5
       pip-version: 22.2.2
-      working-directory: "./rest/strings/"
       command-check-format: "make format-check"
       command-lint: "make lint"
       command-test: "make test"
