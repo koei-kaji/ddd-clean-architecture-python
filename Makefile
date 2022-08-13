@@ -10,8 +10,16 @@ format-check:
 
 .PHONY: lint
 lint:
-	@poetry run pylint -d C,R,fixme custom_pydantic rest_api tests todo
-	@poetry run mypy --show-error-codes custom_pydantic rest_api tests todo
+	@poetry run pylint -d C,R,fixme \
+		src/custom_pydantic \
+		src/rest_api \
+		src/todo \
+		tests
+	@poetry run mypy --show-error-codes \
+		src/custom_pydantic \
+		src/rest_api \
+		src/todo \
+		tests
 
 .PHONY: test
 test:
@@ -23,8 +31,8 @@ pre-commit: format lint test
 
 .PHONY: run
 run:
-	@poetry run uvicorn rest_api.main:app --reload --port=8000
+	@cd src && poetry run uvicorn rest_api.main:app --reload --port=8000
 
 .PHONY: run-gunicorn
 run-gunicorn:
-	@poetry run gunicorn --log-level debug rest_api.main:app
+	@cd src && poetry run gunicorn --log-level debug rest_api.main:app
