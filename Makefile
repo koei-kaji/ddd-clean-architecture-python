@@ -10,20 +10,12 @@ format-check:
 
 .PHONY: lint
 lint:
-	@poetry run pylint -d C,R,fixme \
-		src/custom_pydantic \
-		src/rest_api \
-		src/todo \
-		tests
-	@poetry run mypy --show-error-codes \
-		src/custom_pydantic \
-		src/rest_api \
-		src/todo \
-		tests
+	@poetry run pylint -d C,R,fixme src/
+	@poetry run mypy --show-error-codes src/
 
 .PHONY: test
 test:
-	@poetry run pytest tests
+	@poetry run pytest src/tests
 	@poetry run coverage-badge -f -o docs/img/coverage.svg
 
 .PHONY: pre-commit
