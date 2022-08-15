@@ -17,7 +17,6 @@ from todo.injector.interactor_bus import InteractorBus
 
 from .models.healthz import HealthzGetResponse
 from .models.tasks import (
-    TaskDeleteRequest,
     TaskDeleteResponse,
     TaskGetAllResponse,
     TaskPatchRequest,
@@ -87,16 +86,16 @@ async def post_todo(request: TaskPostRequest) -> TaskPostResponse:
 
 
 @app.patch(Path.todo_by_id.value)
-async def patch_todo(request: TaskPatchRequest) -> TaskPatchResponse:
+async def patch_todo(task_id: str, request: TaskPatchRequest) -> TaskPatchResponse:
     input_data = TaskUpdateInputData(
-        task_id=request.id, name=request.name, status=request.status
+        task_id=task_id, name=request.name, status=request.status
     )
     _ = cast(TaskUpdateOutputData, InteractorBus.handle(input_data))
     return TaskPatchResponse()
 
 
 @app.delete(Path.todo_by_id.value)
-async def delete_todo(request: TaskDeleteRequest) -> TaskDeleteResponse:
-    input_data = TaskDeleteInputData(task_id=request.id)
+async def delete_todo(task_id: str) -> TaskDeleteResponse:
+    input_data = TaskDeleteInputData(task_id=task_id)
     _ = cast(TaskDeleteOutputData, InteractorBus.handle(input_data))
     return TaskDeleteResponse()
