@@ -1,0 +1,7 @@
+**
+!src/custom_pydantic
+!src/rest_api
+!src/todo
+!src/gunicorn.conf.py
+!poetry.lock
+!pyproject.toml
