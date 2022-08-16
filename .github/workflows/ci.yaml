@@ -22,4 +22,4 @@ jobs:
     needs: code-check
     uses: koei-kaji/reusable-github-actions/.github/workflows/docker-check.yaml@v1.1.2
     with:
-      docker-filename: Dockerfile.rest
+      dockerfile-name: Dockerfile.rest
