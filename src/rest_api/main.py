@@ -26,14 +26,15 @@ from .models.tasks import (
 )
 
 
+# TODO: もっと良い方法があるはず
 @unique
 class Path(str, Enum):
-    healthz = "/healthz"
-    todo_all = "/todo"
-    todo_by_id = "/todo/{task_id}"
+    base = "/api/todo"
+    healthz = f"{base}/healthz"
+    todo_by_id = f"{base}/{{task_id}}"
 
 
-app = FastAPI()
+app = FastAPI(openapi_url=f"{Path.base}/openapi.json", docs_url=f"{Path.base}/docs")
 
 # TODO: config
 app.add_middleware(
@@ -63,7 +64,7 @@ async def get_todo_by_id(task_id: str) -> TaskGetResponse:
     )
 
 
-@app.get(Path.todo_all.value)
+@app.get(Path.base.value)
 async def get_todo_all() -> TaskGetAllResponse:
     input_data = TaskGetAllInputData()
     output_data = cast(TaskGetAllOutputData, InteractorBus.handle(input_data))
@@ -74,7 +75,7 @@ async def get_todo_all() -> TaskGetAllResponse:
     return TaskGetAllResponse(data=data)
 
 
-@app.post(Path.todo_all.value, status_code=status.HTTP_201_CREATED)
+@app.post(Path.base.value, status_code=status.HTTP_201_CREATED)
 async def post_todo(request: TaskPostRequest) -> TaskPostResponse:
     input_data = TaskRegisterInputData(name=request.name)
     output_data = cast(TaskRegisterOutputData, InteractorBus.handle(input_data))
