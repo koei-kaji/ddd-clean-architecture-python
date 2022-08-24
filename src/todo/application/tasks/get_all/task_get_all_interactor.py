@@ -1,6 +1,6 @@
 from typing import Any, cast
 
-from injector import inject
+from injector import inject, singleton
 from pydantic import PrivateAttr
 
 from ...abc import ABCInputData, ABCInteractor, ABCOutputData
@@ -8,6 +8,7 @@ from ..if_task_query_service import IFTaskQueryService
 from .task_get_all_input_data import TaskGetAllInputData
 
 
+@singleton
 class TaskGetAllInteractor(ABCInteractor):
     __task_query_service: IFTaskQueryService = PrivateAttr()
 

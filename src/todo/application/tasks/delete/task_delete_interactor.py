@@ -1,6 +1,6 @@
 from typing import Any, cast
 
-from injector import inject
+from injector import inject, singleton
 from pydantic import PrivateAttr
 
 from custom_pydantic.config import BaseFrozenConfig
@@ -11,6 +11,7 @@ from .task_delete_input_data import TaskDeleteInputData
 from .task_delete_output_data import TaskDeleteOutputData
 
 
+@singleton
 class TaskDeleteInteractor(ABCInteractor):
     __task_repository: IFTaskRepository = PrivateAttr()
 

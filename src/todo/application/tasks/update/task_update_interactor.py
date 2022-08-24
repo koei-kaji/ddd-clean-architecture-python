@@ -1,6 +1,6 @@
 from typing import Any, cast
 
-from injector import inject
+from injector import inject, singleton
 from pydantic import PrivateAttr
 
 from custom_pydantic.config import BaseFrozenConfig
@@ -12,6 +12,7 @@ from .task_update_input_data import TaskUpdateInputData
 from .task_update_output_data import TaskUpdateOutputData
 
 
+@singleton
 class TaskUpdateInteractor(ABCInteractor):
     __task_repository: IFTaskRepository = PrivateAttr()
 
