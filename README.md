@@ -6,7 +6,7 @@ The subject is a simple TODO application.
 ## Code Details
 
 - [Directory Structure](./docs/directory_structure.md)
-- Sequence Diagram
+- [Sequence Diagrams](./docs/sequence_diagrams.md)
 - Domain Model
 - IoC Container
 - CQRS
