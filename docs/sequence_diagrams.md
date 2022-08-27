@@ -91,10 +91,10 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant Client
-    participant Injector as injector.injector
+    participant Injector as todo.injector.injector
     participant Binder as Binder
-    participant Module as injector.module
-    participant Settings as config.settings
+    participant Module as todo.injector.module
+    participant Settings as todo.config.settings
 
     activate Injector
 
