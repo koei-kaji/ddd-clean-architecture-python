@@ -1,6 +1,6 @@
 # ddd-clean-architecture-python
 
-Domain Driven Development (DDD) example with Clean Architecture in Python.  
+Domain Driven Design (DDD) example with Clean Architecture in Python.  
 The subject is a simple TODO application.  
 
 ## Code Details
