@@ -5,3 +5,4 @@
 !src/gunicorn.conf.py
 !poetry.lock
 !pyproject.toml
+!security_updates.list
