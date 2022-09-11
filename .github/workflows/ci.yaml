@@ -23,3 +23,9 @@ jobs:
     uses: koei-kaji/reusable-github-actions/.github/workflows/docker-check.yaml@v1.1.2
     with:
       dockerfile-name: Dockerfile.rest
+
+  docker-check-grpc:
+    needs: code-check
+    uses: koei-kaji/reusable-github-actions/.github/workflows/docker-check.yaml@v1.1.2
+    with:
+      dockerfile-name: Dockerfile.grpc

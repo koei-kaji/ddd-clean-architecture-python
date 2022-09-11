@@ -1,8 +1,9 @@
 **
+!src/_grpc
 !src/custom_pydantic
-!src/rest_api
+!src/grpc_protos
 !src/todo
-!src/gunicorn.conf.py
+!src/grpc_server.py
 !poetry.lock
 !pyproject.toml
 !security_updates.list

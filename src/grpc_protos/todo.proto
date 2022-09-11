@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+
+
+service ToDoApplication {
+    // rpc GetById (Empty) returns (ToDo);
+    rpc GetAll (Empty) returns (stream ToDo);
+}
+message Empty {}
+message ToDo {
+    string id = 1;
+    string name = 2;
+    string status = 3;    
+}

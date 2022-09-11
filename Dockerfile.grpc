@@ -30,7 +30,7 @@ RUN readarray -t args < <(grep -vE '^\s*#' security_updates.list) \
 RUN apt-get update \
     # NOTE: uncomment below if you execute apt-get to install something
     # && apt-get install --no-install-recommends -y \
-    # NOTE: https://packages.debian.org/search
+    # NOTE: https:/packages.debian.org/search
     && pip install --no-cache-dir --upgrade pip==${PIP_VERSION} \
     && pip install --no-cache-dir -r requirements.txt \
     && rm -rf \
@@ -51,4 +51,4 @@ RUN apt-get update \
 
 USER ${USERNAME}:${USERNAME}
 COPY ./src pyproject.toml poetry.lock ./
-CMD [ "gunicorn", "rest_api.main:app" ]
+CMD [ "python", "grpc_server.py" ]
