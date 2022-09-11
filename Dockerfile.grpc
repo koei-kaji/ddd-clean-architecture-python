@@ -1,0 +1,54 @@
+ARG PIP_VERSION=22.1.2
+ARG POETRY_VERSION=1.1.13
+
+FROM python:3.10.5-slim-bullseye as builder
+ARG PIP_VERSION
+ARG POETRY_VERSION
+WORKDIR /usr/src/app/
+COPY pyproject.toml poetry.lock ./
+RUN pip install --no-cache-dir --upgrade pip==${PIP_VERSION} \
+    && pip install --no-cache-dir --disable-pip-version-check poetry==${POETRY_VERSION} \
+    && poetry export --without-hashes -f requirements.txt -o requirements.txt
+
+
+FROM python:3.10.5-slim-bullseye
+ARG PIP_VERSION
+ARG POETRY_VERSION
+ENV USERNAME=python
+WORKDIR /usr/src/app/
+COPY --from=builder /usr/src/app/requirements.txt ./
+COPY security_updates.list .
+
+# security update
+SHELL [ "/bin/bash", "-o", "pipefail", "-c" ]
+# hadolint ignore=DL3008,SC2068
+RUN readarray -t args < <(grep -vE '^\s*#' security_updates.list) \ 
+    && apt-get update && apt-get install --no-install-recommends -y ${args[@]} \
+    && rm -rf \
+    /var/lib/apt/lists/*
+
+RUN apt-get update \
+    # NOTE: uncomment below if you execute apt-get to install something
+    # && apt-get install --no-install-recommends -y \
+    # NOTE: https:/packages.debian.org/search
+    && pip install --no-cache-dir --upgrade pip==${PIP_VERSION} \
+    && pip install --no-cache-dir -r requirements.txt \
+    && rm -rf \
+    /bin/mount \
+    /bin/umount \
+    /bin/su \
+    /usr/bin/chage \
+    /usr/bin/chfn \
+    /usr/bin/chsh \ 
+    /usr/bin/expiry \
+    /usr/bin/gpasswd \
+    /usr/bin/newgrp \
+    /usr/bin/passwd \
+    /usr/bin/wall \
+    /sbin/unix_chkpwd \
+    /var/lib/apt/lists/* \
+    && useradd ${USERNAME}
+
+USER ${USERNAME}:${USERNAME}
+COPY ./src pyproject.toml poetry.lock ./
+CMD [ "python", "grpc_server.py" ]

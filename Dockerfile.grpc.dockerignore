@@ -1,0 +1,9 @@
+**
+!src/_grpc
+!src/custom_pydantic
+!src/grpc_protos
+!src/todo
+!src/grpc_server.py
+!poetry.lock
+!pyproject.toml
+!security_updates.list
