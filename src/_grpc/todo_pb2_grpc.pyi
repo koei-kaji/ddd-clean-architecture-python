@@ -3,9 +3,9 @@
 isort:skip_file
 """
 import abc
+import collections.abc
 import grpc
 from . import todo_pb2
-import typing
 
 class ToDoApplicationStub:
 
@@ -17,9 +17,8 @@ class ToDoApplicationStub:
 class ToDoApplicationServicer(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
-    def GetAll(self, request: todo_pb2.Empty, context: grpc.ServicerContext) -> typing.Iterator[todo_pb2.ToDo]:
+    def GetAll(self, request: todo_pb2.Empty, context: grpc.ServicerContext) -> collections.abc.Iterator[todo_pb2.ToDo]:
         """rpc GetById (Empty) returns (ToDo);"""
-        pass
 
 def add_ToDoApplicationServicer_to_server(servicer: ToDoApplicationServicer, server: grpc.Server) -> None:
     ...
