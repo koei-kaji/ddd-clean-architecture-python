@@ -1,6 +1,7 @@
 gpgv=2.2.27-2+deb11u2
 libc-bin=2.31-13+deb11u4
 libc6=2.31-13+deb11u4
+libexpat1=2.2.10-2+deb11u4
 libgnutls30=3.7.1-5+deb11u2
 libpcre2-8-0=10.36-2+deb11u1
 libssl1.1=1.1.1n-0+deb11u3
