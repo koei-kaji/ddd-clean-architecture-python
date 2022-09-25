@@ -19,7 +19,7 @@ The subject is a simple TODO application.
 - [poetry]: Dependency Management for Python
 - make: Build tool
 
-### Installing
+### Installation
 
 ```bash
 # install python 3.10.5 with pyenv
