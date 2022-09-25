@@ -10,7 +10,7 @@ on:
 
 jobs:
   code-check:
-    uses: koei-kaji/reusable-github-actions/.github/workflows/python-code-check.yaml@v1.1.2
+    uses: koei-kaji/reusable-github-actions/.github/workflows/python-code-check.yaml@v1.1.4
     with:
       python-version: 3.10.5
       poetry-version: 1.1.13
@@ -20,12 +20,12 @@ jobs:
 
   docker-check-rest:
     needs: code-check
-    uses: koei-kaji/reusable-github-actions/.github/workflows/docker-check.yaml@v1.1.2
+    uses: koei-kaji/reusable-github-actions/.github/workflows/docker-check.yaml@v1.1.4
     with:
       dockerfile-name: Dockerfile.rest
 
   docker-check-grpc:
     needs: code-check
-    uses: koei-kaji/reusable-github-actions/.github/workflows/docker-check.yaml@v1.1.2
+    uses: koei-kaji/reusable-github-actions/.github/workflows/docker-check.yaml@v1.1.4
     with:
       dockerfile-name: Dockerfile.grpc
