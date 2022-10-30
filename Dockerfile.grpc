@@ -19,14 +19,6 @@ WORKDIR /usr/src/app/
 COPY --from=builder /usr/src/app/requirements.txt ./
 COPY security_updates.list .
 
-# security update
-SHELL [ "/bin/bash", "-o", "pipefail", "-c" ]
-# hadolint ignore=DL3008,SC2068
-RUN readarray -t args < <(grep -vE '^\s*#' security_updates.list) \ 
-    && apt-get update && apt-get install --no-install-recommends -y ${args[@]} \
-    && rm -rf \
-    /var/lib/apt/lists/*
-
 RUN apt-get update \
     # NOTE: uncomment below if you execute apt-get to install something
     # && apt-get install --no-install-recommends -y \
