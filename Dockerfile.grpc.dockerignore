@@ -6,4 +6,3 @@
 !src/grpc_server.py
 !poetry.lock
 !pyproject.toml
-!security_updates.list
