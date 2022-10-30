@@ -17,7 +17,6 @@ ARG POETRY_VERSION
 ENV USERNAME=python
 WORKDIR /usr/src/app/
 COPY --from=builder /usr/src/app/requirements.txt ./
-COPY security_updates.list .
 
 RUN apt-get update \
     # NOTE: uncomment below if you execute apt-get to install something
