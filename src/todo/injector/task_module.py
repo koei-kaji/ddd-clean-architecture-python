@@ -16,9 +16,9 @@ class TaskModule(Module):
         settings = TaskSettings()
         match settings.task_adapter:
             case TaskAdapter.in_memory:
-                binder.bind(IFTaskFactory, InMemoryTaskFactory)  # type: ignore[misc]
-                binder.bind(IFTaskRepository, InMemoryTaskRepository)  # type: ignore[misc]
-                binder.bind(IFTaskQueryService, InMemoryTaskQueryService)  # type: ignore[misc]
+                binder.bind(IFTaskFactory, InMemoryTaskFactory)  # type: ignore[type-abstract]
+                binder.bind(IFTaskRepository, InMemoryTaskRepository)  # type: ignore[type-abstract]
+                binder.bind(IFTaskQueryService, InMemoryTaskQueryService)  # type: ignore[type-abstract]
             case _:
                 raise AdapterNotFoundError(
                     f"{settings.task_adapter} adapter was not found."

@@ -20,7 +20,11 @@ COPY --from=builder /usr/src/app/requirements.txt ./
 
 RUN apt-get update \
     # NOTE: uncomment below if you execute apt-get to install something
-    # && apt-get install --no-install-recommends -y \
+    && apt-get install --no-install-recommends -y \
+    libgssapi-krb5-2=1.18.3-6+deb11u3 \
+    libk5crypto3=1.18.3-6+deb11u3 \
+    libkrb5-3=1.18.3-6+deb11u3 \
+    libkrb5support0=1.18.3-6+deb11u3 \
     # NOTE: https://packages.debian.org/search
     && pip install --no-cache-dir --upgrade pip==${PIP_VERSION} \
     && pip install --no-cache-dir -r requirements.txt \
