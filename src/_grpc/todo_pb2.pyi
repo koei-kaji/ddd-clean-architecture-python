@@ -5,8 +5,11 @@ isort:skip_file
 import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
-import typing
-import typing_extensions
+import sys
+if sys.version_info >= (3, 8):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 class Empty(google.protobuf.message.Message):
@@ -21,11 +24,11 @@ class ToDo(google.protobuf.message.Message):
     ID_FIELD_NUMBER: builtins.int
     NAME_FIELD_NUMBER: builtins.int
     STATUS_FIELD_NUMBER: builtins.int
-    id: typing.Text
-    name: typing.Text
-    status: typing.Text
+    id: builtins.str
+    name: builtins.str
+    status: builtins.str
 
-    def __init__(self, *, id: typing.Text=..., name: typing.Text=..., status: typing.Text=...) -> None:
+    def __init__(self, *, id: builtins.str=..., name: builtins.str=..., status: builtins.str=...) -> None:
         ...
 
     def ClearField(self, field_name: typing_extensions.Literal['id', b'id', 'name', b'name', 'status', b'status']) -> None:
