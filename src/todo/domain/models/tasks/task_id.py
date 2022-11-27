@@ -1,12 +1,9 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, StrictStr
+from pydantic import StrictStr
 
-from custom_pydantic.config import BaseFrozenConfig
+from ..base_model import ValueObjectModel
 
 
-class TaskId(BaseModel):
+class TaskId(ValueObjectModel):
     value: StrictStr
-
-    class Config(BaseFrozenConfig):
-        ...

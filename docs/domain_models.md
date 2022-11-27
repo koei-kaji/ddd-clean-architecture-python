@@ -15,11 +15,13 @@ from pydantic import BaseModel, StrictStr
 from custom_pydantic.config import BaseFrozenConfig
 
 
-class TaskId(BaseModel):
-    value: StrictStr
-
+class ValueObjectModel(BaseModel):
     class Config(BaseFrozenConfig):
         ...
+
+
+class TaskId(ValueObjectModel):
+    value: StrictStr
 ```
 
 ## 1.2. Entity
@@ -35,14 +37,17 @@ from .task_id import TaskId
 from .task_name import TaskName
 
 
-class Task(BaseModel):
+class EntityModel(BaseModel):
+    class Config(BaseConfig):
+        ...
+
+
+class Task(EntityModel):
     task_id: TaskId
     name: TaskName
     # other fields
     # ...
 
-    class Config(BaseConfig):
-        ...
     
     def change_name(self, name: TaskName) -> None:
         self.name = name
