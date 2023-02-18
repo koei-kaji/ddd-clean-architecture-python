@@ -801,18 +801,18 @@ files = [
 
 [[package]]
 name = "protoletariat"
-version = "1.1.0"
+version = "2.1.0"
 description = "Python protocol buffers for the rest of us"
 category = "dev"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "protoletariat-1.1.0-py3-none-any.whl", hash = "sha256:0b28f1709ec8abb541a73553b0c4e3c6f5bbceb059fcbd520e758358a2736819"},
-    {file = "protoletariat-1.1.0.tar.gz", hash = "sha256:c90c665dd14303fc758503978cb2e0ffbd6078197fb9d9f15f93f364819dcc2f"},
+    {file = "protoletariat-2.1.0-py3-none-any.whl", hash = "sha256:583a2a0f15a54eea66d6208fff1100dc1c81063388772c326f6a41eca168b090"},
+    {file = "protoletariat-2.1.0.tar.gz", hash = "sha256:93ad2de075ea5fa38a066fb1ffee75ecebe61e7cc5626dfb2b11a9d5cb854d27"},
 ]
 
 [package.dependencies]
-click = ">=7.1.2,<9"
+click = ">=8,<9"
 protobuf = ">=3.19.1,<5"
 
 [[package]]
@@ -1439,4 +1439,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.11"
-content-hash = "59a2e463f19e89e714c789a299d5db96f8610171ed28e8def57168095b72d0e0"
+content-hash = "9cf453e7184b467bb8e635cd48d91d0c1f6a9fc423b9769f07f744165426036b"
