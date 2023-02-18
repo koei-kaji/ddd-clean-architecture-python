@@ -32,7 +32,9 @@ class TaskUpdateInteractor(ABCInteractor):
         task = self.__task_repository.find_by_id(task_id)
         if task is None:
             # TODO: use custom exception
+            # pylint: disable=broad-exception-raised
             raise Exception(f"Task's id {input_data.task_id} was not found")
+            # pylint: enable=broad-exception-raised
 
         if input_data.name is not None:
             name = TaskName(value=input_data.name)
@@ -46,8 +48,7 @@ class TaskUpdateInteractor(ABCInteractor):
             case None:
                 pass
             case _:
-                # TODO: use custom exception
-                raise Exception(f"Status {input_data.status} was not declared")
+                raise ValueError(f"Status {input_data.status} was not declared")
 
         self.__task_repository.save(task)
 

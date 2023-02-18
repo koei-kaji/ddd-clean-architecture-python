@@ -34,7 +34,7 @@ class Path(str, Enum):
     todo_by_id = f"{base}/{{task_id}}"
 
 
-app = FastAPI(openapi_url=f"{Path.base}/openapi.json", docs_url=f"{Path.base}/docs")
+app = FastAPI()
 
 # TODO: config
 app.add_middleware(
