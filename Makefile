@@ -1,5 +1,15 @@
 DOCKER_TAG_REST=$$(poetry version | awk '{print $$1"-rest:"$$2}')
 DOCKER_TAG_GRPC=$$(poetry version | awk '{print $$1"-grpc:"$$2}')
+DOCKLE_LATEST=$$( \
+  curl --silent "https://api.github.com/repos/goodwithtech/dockle/releases/latest" | \
+  grep '"tag_name":' | \
+  sed -E 's/.*"v([^"]+)".*/\1/' \
+)
+TRIVY_LATEST=$$( \
+  curl --silent "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | \
+  grep '"tag_name":' | \
+  sed -E 's/.*"v([^"]+)".*/\1/' \
+)
 DOCKERFILE_REST=Dockerfile.rest
 DOCKERFILE_GRPC=Dockerfile.grpc
 export DOCKER_BUILDKIT=1
@@ -16,7 +26,7 @@ format-check:
 
 .PHONY: lint
 lint:
-	@poetry run pylint -d C,R,fixme --ignore-paths=src/_grpc/ src/ 
+	@poetry run pylint -d C,R,fixme --ignore-paths=src/_grpc/ src/
 	@poetry run mypy --show-error-codes src/
 
 .PHONY: test
@@ -37,12 +47,16 @@ build-docker:
 .PHONY: scan-docker
 scan-docker:
 	@docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
-       goodwithtech/dockle:latest --no-color $(DOCKER_TAG_REST)
-	@trivy image --ignore-unfixed $(DOCKER_TAG_REST)
+       goodwithtech/dockle:v$(DOCKLE_LATEST) --no-color $(DOCKER_TAG_REST)
+	@docker run -v /var/run/docker.sock:/var/run/docker.sock \
+		-v $${HOME}/Library/Caches:/root/.cache/ \
+		aquasec/trivy:$(TRIVY_LATEST) image --ignore-unfixed $(DOCKER_TAG_REST)
 
 	@docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
-       goodwithtech/dockle:latest --no-color $(DOCKER_TAG_GRPC)
-	@trivy image --ignore-unfixed $(DOCKER_TAG_GRPC)
+       goodwithtech/dockle:v$(DOCKLE_LATEST) --no-color $(DOCKER_TAG_GRPC)
+	@docker run -v /var/run/docker.sock:/var/run/docker.sock \
+		-v $${HOME}/Library/Caches:/root/.cache/ \
+		aquasec/trivy:$(TRIVY_LATEST) image --ignore-unfixed $(DOCKER_TAG_GRPC)
 
 .PHONY: docker
 docker: lint-docker build-docker scan-docker
