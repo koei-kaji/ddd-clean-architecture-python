@@ -1,5 +1,5 @@
-ARG PIP_VERSION=22.2.2
-ARG POETRY_VERSION=1.3.2
+ARG PIP_VERSION=23.0.1
+ARG POETRY_VERSION=1.4.0
 
 FROM python:3.11.2-slim-bullseye as builder
 ARG PIP_VERSION
@@ -21,10 +21,7 @@ COPY --from=builder /usr/src/app/requirements.txt ./
 RUN apt-get update \
     # NOTE: uncomment below if you execute apt-get to install something
     && apt-get install --no-install-recommends -y \
-    libgnutls30=3.7.1-5+deb11u3 \
-    libssl1.1=1.1.1n-0+deb11u4 \
-    libtasn1-6=4.16.0-2+deb11u1 \
-    openssl=1.1.1n-0+deb11u4 \
+    build-essential=12.9 \
     # NOTE: https://packages.debian.org/search
     && pip install --no-cache-dir --upgrade pip==${PIP_VERSION} \
     && pip install --no-cache-dir -r requirements.txt \
