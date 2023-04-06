@@ -1,7 +1,7 @@
 ARG PIP_VERSION=23.0.1
 ARG POETRY_VERSION=1.4.0
 
-FROM python:3.11.2-slim-bullseye as builder
+FROM python:3.11.3-slim-bullseye as builder
 ARG PIP_VERSION
 ARG POETRY_VERSION
 WORKDIR /usr/src/app/
@@ -11,7 +11,7 @@ RUN pip install --no-cache-dir --upgrade pip==${PIP_VERSION} \
     && poetry export --without-hashes -f requirements.txt -o requirements.txt
 
 
-FROM python:3.11.2-slim-bullseye
+FROM python:3.11.3-slim-bullseye
 ARG PIP_VERSION
 ARG POETRY_VERSION
 ENV USERNAME=python
