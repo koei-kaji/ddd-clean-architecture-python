@@ -14,7 +14,7 @@ injector = "^0.20.1"
 requests = "^2.28.1"
 grpcio-tools = "^1.48.1"
 protobuf = "4.22.1"
-httpx = "^0.23.1"
+httpx = "^0.24.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "*"
