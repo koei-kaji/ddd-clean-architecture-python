@@ -25,7 +25,7 @@ pytest-cov = "*"
 pylint = "*"
 coverage-badge = "*"
 mypy-protobuf = "^3.2.0"
-protoletariat = "^2.0.0"
+protoletariat = "^3.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
