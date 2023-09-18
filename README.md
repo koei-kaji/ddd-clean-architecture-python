@@ -1,7 +1,7 @@
 # ddd-clean-architecture-python
 
-Domain Driven Design (DDD) example with Clean Architecture in Python.  
-The subject is a simple TODO application.  
+Domain Driven Design (DDD) example with Clean Architecture in Python.
+The subject is a simple TODO application.
 
 ## Code Details
 
@@ -15,28 +15,24 @@ The subject is a simple TODO application.
 
 ### Prerequisites
 
-- [pyenv]: Python Version Management
-- [poetry]: Dependency Management for Python
+- [rye]: An Experimental Package Management Solution for Python
 - make: Build tool
 
 ### Installation
 
 ```bash
-# install python 3.10.5 with pyenv
-$ pyenv install 3.10.5
+# install
+$ rye sync
 
-# install dependencies
-$ poetry install
-
-# [Optional] activate virtual environment
-$ source .venv/bin/activate
+# activate virtual environment
+$ . .venv/bin/activate
 ```
 
 ## How to run
 
 ```bash
 $ make run
-# Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+# Uvicorn running on http://127.0.0.1:8000/docs (Press CTRL+C to quit)
 ```
 
 ## Built With
@@ -55,8 +51,7 @@ $ make run
 - [pylint]
 - [coverage-badge]
 
-[pyenv]: https://github.com/pyenv/pyenv
-[poetry]: https://github.com/python-poetry/poetry
+[rye]: https://rye-up.com/
 [pydantic]: https://github.com/samuelcolvin/pydantic
 [injector]: https://github.com/alecthomas/injector
 [fastapi]: https://github.com/tiangolo/fastapi

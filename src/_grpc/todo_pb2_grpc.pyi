@@ -5,20 +5,33 @@ isort:skip_file
 import abc
 import collections.abc
 import grpc
+import grpc.aio
 from . import todo_pb2
+import typing
+_T = typing.TypeVar('_T')
+
+class _MaybeAsyncIterator(collections.abc.AsyncIterator[_T], collections.abc.Iterator[_T], metaclass=abc.ABCMeta):
+    ...
+
+class _ServicerContext(grpc.ServicerContext, grpc.aio.ServicerContext):
+    ...
 
 class ToDoApplicationStub:
 
-    def __init__(self, channel: grpc.Channel) -> None:
+    def __init__(self, channel: typing.Union[grpc.Channel, grpc.aio.Channel]) -> None:
         ...
     GetAll: grpc.UnaryStreamMultiCallable[todo_pb2.Empty, todo_pb2.ToDo]
+    'rpc GetById (Empty) returns (ToDo);'
+
+class ToDoApplicationAsyncStub:
+    GetAll: grpc.aio.UnaryStreamMultiCallable[todo_pb2.Empty, todo_pb2.ToDo]
     'rpc GetById (Empty) returns (ToDo);'
 
 class ToDoApplicationServicer(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
-    def GetAll(self, request: todo_pb2.Empty, context: grpc.ServicerContext) -> collections.abc.Iterator[todo_pb2.ToDo]:
+    def GetAll(self, request: todo_pb2.Empty, context: _ServicerContext) -> typing.Union[collections.abc.Iterator[todo_pb2.ToDo], collections.abc.AsyncIterator[todo_pb2.ToDo]]:
         """rpc GetById (Empty) returns (ToDo);"""
 
-def add_ToDoApplicationServicer_to_server(servicer: ToDoApplicationServicer, server: grpc.Server) -> None:
+def add_ToDoApplicationServicer_to_server(servicer: ToDoApplicationServicer, server: typing.Union[grpc.Server, grpc.aio.Server]) -> None:
     ...

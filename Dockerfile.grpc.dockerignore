@@ -4,5 +4,6 @@
 !src/grpc_protos
 !src/todo
 !src/grpc_server.py
-!poetry.lock
 !pyproject.toml
+!requirements.lock
+!README.md
