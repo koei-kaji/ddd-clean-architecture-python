@@ -10,13 +10,43 @@ on:
 
 jobs:
   code-check:
-    uses: koei-kaji/reusable-github-actions/.github/workflows/python-code-check.yaml@v1.1.4
-    with:
-      python-version: 3.11.2
-      poetry-version: 1.4.0
-      command-check-format: "make format-check"
-      command-lint: "make lint"
-      command-test: "make test"
+    runs-on: ubuntu-latest
+    steps:
+      #----------------------------------------------
+      # check-out repo & set-up python
+      #----------------------------------------------
+      - name: Check out repository
+        id: check-out-repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        id: setup-python
+        uses: actions/setup-python@v4
+        with:
+          cache: "pip"
+
+      - name: Install dependencies
+        id: install-dependencies
+        run: pip install -r requirements-dev.lock
+
+      #----------------------------------------------
+      # run test suite
+      #----------------------------------------------
+      - name: Check format
+        id: check-format
+        run: |
+          isort --check --extend-skip src/_grpc/ .
+          black --check --extend-exclude src/_grpc/ .
+
+      - name: Lint
+        id: lint
+        run: |
+          pylint -d C,R,fixme --ignore-paths=src/_grpc/ src/
+          mypy --show-error-codes --exclude src/_grpc/ src/
+
+      - name: Test
+        id: test
+        run: pytest src/tests
 
   docker-check-rest:
     needs: code-check
