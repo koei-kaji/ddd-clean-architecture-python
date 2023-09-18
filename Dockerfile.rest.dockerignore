@@ -3,5 +3,6 @@
 !src/rest_api
 !src/todo
 !src/gunicorn.conf.py
-!poetry.lock
 !pyproject.toml
+!requirements.lock
+!README.md

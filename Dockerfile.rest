@@ -1,30 +1,17 @@
-ARG PIP_VERSION=23.0.1
-ARG POETRY_VERSION=1.4.0
+ARG PIP_VERSION=23.2.1
 
-FROM python:3.11.2-slim-bullseye as builder
+FROM python:3.11.5-slim-bullseye
 ARG PIP_VERSION
-ARG POETRY_VERSION
-WORKDIR /usr/src/app/
-COPY pyproject.toml poetry.lock ./
-RUN pip install --no-cache-dir --upgrade pip==${PIP_VERSION} \
-    && pip install --no-cache-dir --disable-pip-version-check poetry==${POETRY_VERSION} \
-    && poetry export --without-hashes -f requirements.txt -o requirements.txt
-
-
-FROM python:3.11.2-slim-bullseye
-ARG PIP_VERSION
-ARG POETRY_VERSION
 ENV USERNAME=python
 WORKDIR /usr/src/app/
-COPY --from=builder /usr/src/app/requirements.txt ./
 
-RUN apt-get update \
-    # NOTE: uncomment below if you execute apt-get to install something
-    && apt-get install --no-install-recommends -y \
-    build-essential=12.9 \
-    # NOTE: https://packages.debian.org/search
-    && pip install --no-cache-dir --upgrade pip==${PIP_VERSION} \
-    && pip install --no-cache-dir -r requirements.txt \
+COPY ./src pyproject.toml requirements.lock README.md ./
+
+# NOTE: uncomment below if you execute apt-get to install something
+# apt-get update && apt-get install --no-install-recommends -y \
+# NOTE: https://packages.debian.org/search
+RUN pip install --no-cache-dir --upgrade pip==${PIP_VERSION} \
+    && pip install --no-cache-dir -r requirements.lock \
     && rm -rf \
     /bin/mount \
     /bin/umount \
@@ -42,5 +29,4 @@ RUN apt-get update \
     && useradd ${USERNAME}
 
 USER ${USERNAME}:${USERNAME}
-COPY ./src pyproject.toml poetry.lock ./
 CMD [ "gunicorn", "rest_api.main:app" ]

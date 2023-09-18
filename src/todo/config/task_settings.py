@@ -1,6 +1,6 @@
 from enum import Enum, unique
 
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 
 @unique
