@@ -1,13 +1,9 @@
-from pydantic import BaseModel
-
-from custom_pydantic.config import BaseConfig, BaseFrozenConfig
+from custom_pydantic.model import BaseFrozenModel, BaseModel
 
 
-class ValueObjectModel(BaseModel):
-    class Config(BaseFrozenConfig):
-        ...
+class ValueObjectModel(BaseFrozenModel):
+    ...
 
 
 class EntityModel(BaseModel):
-    class Config(BaseConfig):
-        ...
+    ...

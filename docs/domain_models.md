@@ -1,23 +1,22 @@
 # 1. Domain Models
 
-In principle, the following rules apply.  
+In principle, the following rules apply.
 
 - Inherit [pydantic's BaseModel]
 - Use [Strict Types]
 
 ## 1.1. Value Object
 
-Inherit `custom_pydantic.config.BaseFrozenConfig` to be immutable.  
+Inherit `custom_pydantic.model.BaseFrozenModel` to be immutable.
 
 ```python
-from pydantic import BaseModel, StrictStr
+from pydantic import StrictStr
 
-from custom_pydantic.config import BaseFrozenConfig
+from custom_pydantic.model import BaseFrozenModel
 
 
-class ValueObjectModel(BaseModel):
-    class Config(BaseFrozenConfig):
-        ...
+class ValueObjectModel(BaseFrozenModel):
+    ...
 
 
 class TaskId(ValueObjectModel):
@@ -26,20 +25,17 @@ class TaskId(ValueObjectModel):
 
 ## 1.2. Entity
 
-Inherit `custom_pydantic.config.BaseConfig`.  
+Inherit `custom_pydantic.model.BaseModel`.
 
 ```python
-from pydantic import BaseModel
-
-from custom_pydantic.config import BaseConfig
+from custom_pydantic.model import BaseModel
 
 from .task_id import TaskId
 from .task_name import TaskName
 
 
 class EntityModel(BaseModel):
-    class Config(BaseConfig):
-        ...
+    ...
 
 
 class Task(EntityModel):
@@ -48,7 +44,7 @@ class Task(EntityModel):
     # other fields
     # ...
 
-    
+
     def change_name(self, name: TaskName) -> None:
         self.name = name
 
@@ -58,14 +54,14 @@ class Task(EntityModel):
 
 ## 1.3. Domain Service
 
-Currently not implemented.  
+Currently not implemented.
 
 ## 1.4. Repository
 
-1. Define the Repository's Interface class(ABC) in the `domain.models.<Entities>` module.  
-2. Implement the concrete Repository class in the `infrastructure.<Infrastructure>.<Entities>` module.  
+1. Define the Repository's Interface class(ABC) in the `domain.models.<Entities>` module.
+2. Implement the concrete Repository class in the `infrastructure.<Infrastructure>.<Entities>` module.
 
-Methods of the Repository class take `Value Objects` or `Entities` as arguments and returns `Value Objects` or `Entities`.  
+Methods of the Repository class take `Value Objects` or `Entities` as arguments and returns `Value Objects` or `Entities`.
 
 ### 1.4.1. Example
 
@@ -74,10 +70,10 @@ Methods of the Repository class take `Value Objects` or `Entities` as arguments 
 
 ## 1.5. Factory
 
-1. Define the Factory's Interface class(ABC) in the `domain.models.<Entities>` module.  
-2. Implement the concrete Factory class in the `infrastructure.<Infrastructure>.<Entities>` module.  
+1. Define the Factory's Interface class(ABC) in the `domain.models.<Entities>` module.
+2. Implement the concrete Factory class in the `infrastructure.<Infrastructure>.<Entities>` module.
 
-Methods of the Repository class take `Value Objects` as arguments and returns an `Entity`.  
+Methods of the Repository class take `Value Objects` as arguments and returns an `Entity`.
 
 ### 1.5.1. Example
 

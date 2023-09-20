@@ -3,8 +3,6 @@ from typing import Any, cast
 from injector import inject, singleton
 from pydantic import PrivateAttr
 
-from custom_pydantic.config import BaseFrozenConfig
-
 from ....domain.models.tasks import IFTaskRepository, TaskId
 from ...abc import ABCInputData, ABCInteractor, ABCOutputData
 from .task_delete_input_data import TaskDeleteInputData
@@ -31,6 +29,3 @@ class TaskDeleteInteractor(ABCInteractor):
         self.__task_repository.delete(task_id)
 
         return TaskDeleteOutputData()
-
-    class Config(BaseFrozenConfig):
-        ...

@@ -3,8 +3,6 @@ from typing import Any, cast
 from injector import inject, singleton
 from pydantic import PrivateAttr
 
-from custom_pydantic.config import BaseFrozenConfig
-
 from ....domain.models.tasks import IFTaskFactory, IFTaskRepository, TaskName
 from ...abc import ABCInputData, ABCInteractor, ABCOutputData
 from ..commons.task_data import TaskData
@@ -42,6 +40,3 @@ class TaskRegisterInteractor(ABCInteractor):
                 status=task.status.value,
             )
         )
-
-    class Config(BaseFrozenConfig):
-        ...

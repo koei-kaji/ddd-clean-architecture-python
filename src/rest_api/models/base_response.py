@@ -1,8 +1,5 @@
-from pydantic import BaseModel
-
-from custom_pydantic.config import BaseFrozenConfig
+from custom_pydantic.model import BaseFrozenModel
 
 
-class BaseResponse(BaseModel):
-    class Config(BaseFrozenConfig):
-        ...
+class BaseResponse(BaseFrozenModel):
+    ...
