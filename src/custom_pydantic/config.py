@@ -1,21 +1,14 @@
-from typing import Literal
+from pydantic import ConfigDict
 
-from pydantic.config import BaseConfig as PydanticBaseConfig
+BaseConfigDict = ConfigDict(
+    strict=True,
+    validate_default=True,
+    extra="forbid",
+)
 
-
-class ABCConfig(PydanticBaseConfig):
-    validate_all: bool = True
-    validate_assignment = True
-    copy_on_model_validation: Literal["none", "deep", "shallow"] = "deep"
-
-
-class BaseConfig(PydanticBaseConfig):
-    validate_all = True
-    validate_assignment = True
-    copy_on_model_validation: Literal["none", "deep", "shallow"] = "deep"
-
-
-class BaseFrozenConfig(PydanticBaseConfig):
-    validate_all: bool = True
-    allow_mutation: bool = False
-    copy_on_model_validation: Literal["none", "deep", "shallow"] = "deep"
+BaseFrozenConfigDict = ConfigDict(
+    strict=True,
+    validate_default=True,
+    extra="forbid",
+    frozen=True,
+)

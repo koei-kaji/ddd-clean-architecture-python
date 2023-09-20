@@ -1,10 +1,5 @@
-import abc
-
-from pydantic import BaseModel
-
-from custom_pydantic.config import BaseFrozenConfig
+from custom_pydantic.model import ABCBaseFrozenModel
 
 
-class ABCInputData(BaseModel, abc.ABC):
-    class Config(BaseFrozenConfig):
-        ...
+class ABCInputData(ABCBaseFrozenModel):
+    ...
