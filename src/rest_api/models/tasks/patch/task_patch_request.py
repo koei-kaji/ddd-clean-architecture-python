@@ -5,6 +5,5 @@ from ..commons.task_status import TaskStatus
 
 
 class TaskPatchRequest(BaseRequest):
-    id: StrictStr
     name: StrictStr | None = None
     status: TaskStatus | None = None
